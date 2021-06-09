@@ -8,25 +8,22 @@ router.post('/', (req, res) => {
     console.log(noOfseats)
     try {
         const seats = [ ]
-        for (var i = 1; i <= noOfseats["Seats"]; i++) {
-            seats.push(i)
+        for (var seatNo = 1; seatNo <= noOfseats["Seats"]; seatNo++) {
+            seats.push(seatNo)
         }
         const data = {
             "noOfseats": noOfseats["Seats"],
             "bus": seats
         }
+        // write the data in bus.json file
 
-        fs.writeFile("./Api/bus.json",JSON.stringify(data), err => {
-            if (err) console.log(err);
-        });
-
-        fs.writeFile("./Api/tickets.json", JSON.stringify({}), err => {
-            if (err) console.log(err);
-        });
-
+        fs.writeFile("./Api/bus.json", JSON.stringify(data))
+        
+         // write the empty object in tickets.json file
+        
+        fs.writeFile("./Api/tickets.json", JSON.stringify({}))
         res.send("bus created ")
        
-
     } catch (err) {
         console.error(err)
         return res.status(500).json({"msg":"server error"})
